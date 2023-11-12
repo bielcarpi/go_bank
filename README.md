@@ -2,12 +2,14 @@
 
 Bank API written in Go
 
-### Requirements
-To run the PostgreSQL database in a Docker container, run:
+### Run
 ```bash
-docker run --name postgres16 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres:16-alpine
+# To start the container with the PostgreSQL database:
+make postgres
+
+# To create the database where data will be stored:
+make createdb
+
+# To run the tests:
+make test
 ```
-
-
-### Author
-Biel Carpi ([biel.carpi@outlook.com](mailto:biel.carpi@outlook.com))
