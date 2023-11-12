@@ -7,10 +7,10 @@ createdb:
 dropdb:
 	docker exec -it postgres16 dropdb go_bank
 
-migrateup:
+migrate:
 	migrate -path db/migration -database "postgresql://root:root@localhost:5432/go_bank?sslmode=disable" -verbose up
 
-migratedown:
+migrate-down:
 	migrate -path db/migration -database "postgresql://root:root@localhost:5432/go_bank?sslmode=disable" -verbose down
 
 sqlc:
