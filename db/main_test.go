@@ -15,6 +15,8 @@ const (
 
 var testQueries *Queries
 
+// Entry point for the test
+// Opens a connection to the database
 func TestMain(m *testing.M) {
 	conn, err := sql.Open(dbDriver, dbSource)
 
