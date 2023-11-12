@@ -1,11 +1,11 @@
 -- CRUD for transfers (create a transfer, get transfer by id, get all transfers from or to an account)
 
--- name: CreateTransfer : one
+-- name: CreateTransfer :one
 INSERT INTO transfers (from_account_id, to_account_id, amount)
 VALUES ($1, $2, $3)
 RETURNING *;
 
--- name: GetTransfer : one
+-- name: GetTransfer :one
 SELECT *
 FROM transfers
 WHERE id = $1
