@@ -14,11 +14,13 @@ const (
 )
 
 var testQueries *Queries
+var testDB *sql.DB
 
 // Entry point for the test
 // Opens a connection to the database
 func TestMain(m *testing.M) {
-	conn, err := sql.Open(dbDriver, dbSource)
+	var err error
+	testDB, err = sql.Open(dbDriver, dbSource)
 
 	// Check if the connection is successful
 	if err != nil {
@@ -26,7 +28,7 @@ func TestMain(m *testing.M) {
 	}
 
 	// Assign the connection to the global variable
-	testQueries = New(conn)
+	testQueries = New(testDB)
 	exit := m.Run()
 	os.Exit(exit)
 }
