@@ -9,6 +9,9 @@ import (
 	"net/http"
 )
 
+// CreateAccountRequest represents the request body for creating an account
+// Note the json tags for the fields, which are used for JSON serialization
+// Binding is used to validate the request body
 type CreateAccountRequest struct {
 	Owner    string `json:"owner" binding:"required,min=1,max=30"`
 	Currency string `json:"currency" binding:"required,oneof=EUR USD"`

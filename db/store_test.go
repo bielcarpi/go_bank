@@ -16,23 +16,27 @@ func TestTransferTx(t *testing.T) {
 	n := 5
 	amount := int64(10)
 
+	// Make two channels to receive the errors and the results
 	errs := make(chan error)
 	results := make(chan TransferTxResult)
 
+	// Run n concurrent transfer transactions in goroutines
 	for i := 0; i < n; i++ {
 		go func() {
+			// Run the transfer transaction
 			result, err := store.TransferTx(context.Background(), TransferTxParams{
 				FromAccountID: account1.ID,
 				ToAccountID:   account2.ID,
 				Amount:        amount,
 			})
 
+			// Send the result to the channel
 			errs <- err
 			results <- result
 		}()
 	}
 
-	// Check if there is any error
+	// Wait for the channels and check the results
 	for i := 0; i < n; i++ {
 		err := <-errs
 		require.NoError(t, err)
