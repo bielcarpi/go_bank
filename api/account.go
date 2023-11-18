@@ -14,7 +14,7 @@ import (
 // Binding is used to validate the request body
 type CreateAccountRequest struct {
 	Owner    string `json:"owner" binding:"required,min=1,max=30"`
-	Currency string `json:"currency" binding:"required,oneof=EUR USD"`
+	Currency string `json:"currency" binding:"required,currency"`
 }
 
 // createAccount creates a new account in the database
