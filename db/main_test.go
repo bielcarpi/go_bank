@@ -20,7 +20,8 @@ func TestMain(m *testing.M) {
 		log.Fatal("cannot load configs", err)
 	}
 
-	testDB, err := sql.Open(config.DBDriver, config.DBSource)
+	// Note we can't use := here (we override testDB in global scope)
+	testDB, err = sql.Open(config.DBDriver, config.DBSource)
 
 	// Check if the connection is successful
 	if err != nil {
