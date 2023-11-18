@@ -10,7 +10,7 @@ import (
 )
 
 // CreateAccountRequest represents the request body for creating an account
-// Note the json tags for the fields, which are used for JSON serialization
+// Note the json tags for the fields, which are used for JSON unmarshalling
 // Binding is used to validate the request body
 type CreateAccountRequest struct {
 	Owner    string `json:"owner" binding:"required,min=1,max=30"`
@@ -22,6 +22,7 @@ func (server *Server) createAccount(ctx *gin.Context) {
 	var req CreateAccountRequest
 
 	// Check if the request body is valid (JSON)
+	// Besides from unmarshalling, ShouldBindJSON also checks the binding property to validate the body
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
@@ -51,7 +52,7 @@ type GetAccountRequest struct {
 func (server *Server) getAccount(ctx *gin.Context) {
 	var req GetAccountRequest
 
-	// Check if the request parameters are valid
+	// Check if the request parameters are valid (uri params)
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
@@ -82,7 +83,7 @@ type ListAccountRequest struct {
 func (server *Server) listAccounts(ctx *gin.Context) {
 	var req ListAccountRequest
 
-	// Check if the request parameters are valid
+	// Check if the request parameters are valid (query uri params)
 	if err := ctx.ShouldBindQuery(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return

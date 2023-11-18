@@ -3,14 +3,10 @@ package db
 import (
 	"database/sql"
 	_ "github.com/lib/pq"
+	"go_bank/util"
 	"log"
 	"os"
 	"testing"
-)
-
-const (
-	dbDriver = "postgres"
-	dbSource = "postgresql://root:root@localhost:5432/go_bank?sslmode=disable"
 )
 
 var testQueries *Queries
@@ -19,12 +15,16 @@ var testDB *sql.DB
 // Entry point for the test
 // Opens a connection to the database
 func TestMain(m *testing.M) {
-	var err error
-	testDB, err = sql.Open(dbDriver, dbSource)
+	config, err := util.LoadConfig("../")
+	if err != nil {
+		log.Fatal("cannot load configs", err)
+	}
+
+	testDB, err := sql.Open(config.DBDriver, config.DBSource)
 
 	// Check if the connection is successful
 	if err != nil {
-		log.Fatal("Cannot connect to db: ", err)
+		log.Fatal("cannot open connection to DB", err)
 	}
 
 	// Assign the connection to the global variable

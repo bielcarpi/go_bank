@@ -20,7 +20,7 @@ test:
 	go test -v -cover ./...
 
 run:
-	go run main.go
+	go build main.go && ./main
 
 
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc test run
