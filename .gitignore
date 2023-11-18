@@ -10,6 +10,7 @@
 *.ipr
 # If you want to share run configurations with your team, remove .run/
 .run/
+main
 
 # Miscellaneous files
 *.swp
